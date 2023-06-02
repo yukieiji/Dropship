@@ -4,7 +4,7 @@ using Il2CppObject = Il2CppSystem.Object;
 
 namespace Dropship.Translation.Extension;
 
-public static class TranslationControllerExtension
+public static class StringIdExtension
 {
     public static string GetString(string id, params Il2CppObject[] parts)
         => TranslationController.Instance.GetString(id, defaultStr: string.Empty, parts: parts);
