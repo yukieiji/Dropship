@@ -2,6 +2,7 @@
 using HarmonyLib;
 
 using Dropship.Translation;
+using AmongUs.Data;
 
 namespace Dropship.Patches;
 
@@ -14,6 +15,8 @@ internal static class AddModTransDataPatch
         [HarmonyArgument(1)] ref Dictionary<string, string> allStrings,
         [HarmonyArgument(2)] ref Dictionary<StringNames, QuickChatSentenceVariantSet> allQuickChatVariantSets)
     {
-        TranslatorManager.AddTranslationData(__instance.languageID, allStrings);
+        TranslatorManager.AddTranslationData(
+            DataManager.Settings.Language.CurrentLanguage,
+            allStrings);
     }
 }

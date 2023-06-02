@@ -8,15 +8,13 @@ namespace Dropship.Translation;
 
 public static class TranslatorManager
 {
-    private static List<TranslatorBase> allTrans = new List<TranslatorBase>();
+    private static SortedList<int, TranslatorBase> allTrans = new SortedList<int, TranslatorBase>();
 
     public static void Register(TranslatorBase translator)
     {
-        if (!allTrans.Contains(translator))
+        if (!allTrans.ContainsValue(translator))
         {
-            allTrans.Add(translator);
-
-            allTrans.Sort((a, b) => b.Priority - a.Priority);
+            allTrans.Add(translator.Priority, translator);
         }
     }
 
@@ -36,9 +34,9 @@ public static class TranslatorManager
         SupportedLangs languageId,
         Il2CppCollection.Dictionary<string, string> allData)
     {
-        foreach (TranslatorBase translator in allTrans)
+        foreach (TranslatorBase translator in allTrans.Values)
         {
-            SupportedLangs useLang = 
+            SupportedLangs useLang =
                 translator.IsSupport(languageId) ? languageId : translator.DefaultLang;
             AddData(
                 allData,
